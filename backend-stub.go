@@ -12,7 +12,7 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"golang/yangu/utils"
+	"golang/yangu/certs"
 	"github.com/gorilla/mux"
 )
 
@@ -227,7 +227,7 @@ This code will only work at exactly "2009-11-10 23:00:00 +0000 UTC m=+0.00000000
 func main(){
 
 	log.Println(" === Checking Certificates..")
-	utils.CheckCerts()
+	certs.CheckCerts()
 	log.Println(" === Starting Server.")
 	go  startApiHandlers()
 	time.Sleep(2000)

@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: backend
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: backend
+spec:
+  ports:
+    - targetPort: 8080
+      port: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: backend
+  type: NodePort
+
+---
+apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
+      # generated from the deployment name
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: backend-stub:0.1
+        ports:
+        - containerPort: 8080

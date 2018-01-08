@@ -1,3 +1,4 @@
-FROM scratch
-ADD ../../repo/amd64/backend-stub /bin/backend-stub
-ENTRYPOINT /bin/backend-stub
+FROM ubuntu
+ADD ./backend-stub /backend-stub
+EXPOSE 8080
+CMD ["/backend-stub"]
